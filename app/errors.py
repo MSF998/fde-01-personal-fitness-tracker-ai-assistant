@@ -11,6 +11,7 @@ FIELD_MESSAGES = {
     "type": "Type must be one of: run, walk, strength_training, swim, cycle, other.",
     "duration_minutes": "Duration must be greater than zero.",
     "feeling": "Feeling must be one of: great, good, okay, tough, exhausting.",
+    "range": "Range must be one of: week, month, year.",
 }
 
 

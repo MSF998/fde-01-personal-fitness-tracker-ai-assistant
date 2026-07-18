@@ -70,6 +70,14 @@ def create_workout(data: dict) -> dict:
         return dict(row)
 
 
+def has_logged_any_workout() -> bool:
+    """Independent of any selected range — this is what decides Progress View's true empty
+    state (PRD Feature 4 AC2), not whether the *currently selected* range happens to be empty."""
+    with get_connection() as conn:
+        row = conn.execute("SELECT 1 FROM workout LIMIT 1").fetchone()
+        return row is not None
+
+
 def list_workouts(limit: int | None = None) -> list[dict]:
     """Most-recent-first (docs/lld.md PRD Feature 2 AC3). Shared by Dashboard's recent-activity
     list (M2, limited) and the full Workout History page (M3, unlimited)."""

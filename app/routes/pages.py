@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 
-from app.data_access import get_profile, list_workouts
-from app.formatting import group_by_day_label
+from app.data_access import get_profile, has_logged_any_workout, list_workouts
+from app.formatting import format_duration, group_by_day_label
 from app.formulas import calculate_bmi, calculate_estimated_daily_calories
+from app.progress import get_progress_stats
 from app.templating import templates
 
 router = APIRouter()
@@ -11,8 +12,8 @@ router = APIRouter()
 
 @router.get("/", response_class=HTMLResponse)
 def dashboard(request: Request):
-    """docs/wireframes.md Screen 2. Log Workout / Get AI Recommendation tiles open placeholder
-    modals until M3/M5 fill them in; View Progress links to /progress (404 until M4)."""
+    """docs/wireframes.md Screen 2. Get AI Recommendation tile opens a placeholder modal
+    until M5 fills it in."""
     profile = get_profile()
     if profile is None:
         return RedirectResponse(url="/profile/new", status_code=303)
@@ -41,3 +42,19 @@ def workout_history(request: Request):
     """docs/wireframes.md Screen 4 — most-recent-first, grouped by date."""
     groups = group_by_day_label(list_workouts())
     return templates.TemplateResponse(request, "workouts.html", {"groups": groups})
+
+
+@router.get("/progress", response_class=HTMLResponse)
+def progress_page(request: Request):
+    """docs/wireframes.md Screen 6. Empty state is based on whether the user has EVER logged
+    a workout, not whether the default "week" range happens to be empty (see app/progress.py)."""
+    has_data = has_logged_any_workout()
+    stats = get_progress_stats("week") if has_data else None
+    context = {
+        "has_data": has_data,
+        "stats": stats,
+        "total_duration_display": format_duration(stats["total_duration_minutes"])
+        if stats
+        else None,
+    }
+    return templates.TemplateResponse(request, "progress.html", context)

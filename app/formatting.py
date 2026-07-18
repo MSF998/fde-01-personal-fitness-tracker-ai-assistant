@@ -25,3 +25,14 @@ def group_by_day_label(workouts: list[dict]) -> list[tuple[str, list[dict]]]:
         else:
             groups.append((label, [workout]))
     return groups
+
+
+def format_duration(total_minutes: int) -> str:
+    """'6h 40m' style display — LLD's total_duration_minutes is raw minutes; this formatting
+    is presentation-layer only, mirrored in static/js/progress.js for the range-change path."""
+    hours, minutes = divmod(total_minutes, 60)
+    if hours and minutes:
+        return f"{hours}h {minutes}m"
+    if hours:
+        return f"{hours}h"
+    return f"{minutes}m"

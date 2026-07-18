@@ -53,3 +53,26 @@ class WorkoutListResponse(BaseModel):
     """docs/lld.md §4 — GET /api/workouts response."""
 
     workouts: list[WorkoutResponse]
+
+
+ProgressRange = Literal["week", "month", "year"]
+
+
+class ProgressFrequencyPoint(BaseModel):
+    period: str
+    count: int
+
+
+class ProgressDurationPoint(BaseModel):
+    period: str
+    minutes: int
+
+
+class ProgressResponse(BaseModel):
+    """docs/lld.md §4 — GET /api/progress response."""
+
+    range: ProgressRange
+    total_workouts: int
+    total_duration_minutes: int
+    workout_frequency: list[ProgressFrequencyPoint]
+    duration_trend: list[ProgressDurationPoint]

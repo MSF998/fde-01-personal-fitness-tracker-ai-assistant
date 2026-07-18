@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Progress — Personal Fitness Tracker</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Progress</h1>
+        <a href="/">&larr; Back to Dashboard</a>
+    </header>
+    <main>
+        {% if not has_data %}
+        <div id="progress-empty">
+            <p>You haven't logged a workout yet.</p>
+            <a class="tile" href="/">Log Your First Workout</a>
+        </div>
+        {% else %}
+        <div id="progress-content">
+            <div class="field">
+                <label for="range">Range</label>
+                <select id="range">
+                    <option value="week">Week</option>
+                    <option value="month">Month</option>
+                    <option value="year">Year</option>
+                </select>
+            </div>
+
+            <div class="kpis">
+                <span>Total workouts: <b id="total-workouts">{{ stats.total_workouts }}</b></span>
+                <span>Total duration: <b id="total-duration">{{ total_duration_display }}</b></span>
+            </div>
+
+            <div class="chartbox">
+                <p class="cap">Workout frequency</p>
+                <canvas id="frequency-chart"></canvas>
+            </div>
+            <div class="chartbox">
+                <p class="cap">Duration trend</p>
+                <canvas id="duration-chart"></canvas>
+            </div>
+        </div>
+        <script id="progress-data" type="application/json">{{ stats | tojson }}</script>
+        {% endif %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/js/progress.js"></script>
+</body>
+</html>
