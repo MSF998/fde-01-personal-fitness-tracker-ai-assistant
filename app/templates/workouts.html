@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Workout History — Personal Fitness Tracker</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Workout History</h1>
+        <a href="/">&larr; Back to Dashboard</a>
+    </header>
+    <main>
+        {% if groups %}
+        {% for label, items in groups %}
+        <h2 class="day-label">{{ label }}</h2>
+        <ul class="activity-list">
+            {% for workout in items %}
+            <li>{{ workout.type }} &middot; {{ workout.duration_minutes }} min &middot; felt {{ workout.feeling }}</li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+        {% else %}
+        <p>No workouts logged yet.</p>
+        {% endif %}
+    </main>
+</body>
+</html>

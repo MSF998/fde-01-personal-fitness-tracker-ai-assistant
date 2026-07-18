@@ -54,6 +54,22 @@ def save_profile(data: dict) -> dict:
         return dict(row)
 
 
+def create_workout(data: dict) -> dict:
+    """logged_at defaults to insert time (docs/lld.md §3) — never client-supplied."""
+    now = _now()
+    with get_connection() as conn:
+        cursor = conn.execute(
+            """INSERT INTO workout (type, duration_minutes, feeling, logged_at)
+               VALUES (?, ?, ?, ?)""",
+            (data["type"], data["duration_minutes"], data["feeling"], now),
+        )
+        conn.commit()
+        row = conn.execute(
+            "SELECT * FROM workout WHERE id = ?", (cursor.lastrowid,)
+        ).fetchone()
+        return dict(row)
+
+
 def list_workouts(limit: int | None = None) -> list[dict]:
     """Most-recent-first (docs/lld.md PRD Feature 2 AC3). Shared by Dashboard's recent-activity
     list (M2, limited) and the full Workout History page (M3, unlimited)."""

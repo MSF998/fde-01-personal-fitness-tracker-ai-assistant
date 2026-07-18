@@ -25,3 +25,31 @@ class ProfileResponse(BaseModel):
     weight_kg: float
     bmi: float
     estimated_daily_calories: int
+
+
+WorkoutType = Literal["run", "walk", "strength_training", "swim", "cycle", "other"]
+Feeling = Literal["great", "good", "okay", "tough", "exhausting"]
+
+
+class WorkoutCreateRequest(BaseModel):
+    """docs/lld.md §4 — POST /api/workouts request; enums/bounds from §3's schema."""
+
+    type: WorkoutType
+    duration_minutes: int = Field(..., gt=0)
+    feeling: Feeling
+
+
+class WorkoutResponse(BaseModel):
+    """docs/lld.md §4 — POST /api/workouts response."""
+
+    id: int
+    type: WorkoutType
+    duration_minutes: int
+    feeling: Feeling
+    logged_at: str
+
+
+class WorkoutListResponse(BaseModel):
+    """docs/lld.md §4 — GET /api/workouts response."""
+
+    workouts: list[WorkoutResponse]

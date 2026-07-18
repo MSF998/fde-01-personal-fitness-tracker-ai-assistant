@@ -22,21 +22,60 @@
 
         <section>
             <h2>Recent Activity</h2>
-            {% if workouts %}
-            <ul class="activity-list">
-                {% for workout in workouts %}
-                <li>{{ workout.type }} &middot; {{ workout.duration_minutes }} min &middot; felt {{ workout.feeling }}</li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <p>No workouts logged yet.</p>
-            {% endif %}
+            <div id="recent-activity">
+                {% if workouts %}
+                <ul class="activity-list">
+                    {% for workout in workouts %}
+                    <li>{{ workout.type }} &middot; {{ workout.duration_minutes }} min &middot; felt {{ workout.feeling }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No workouts logged yet.</p>
+                {% endif %}
+            </div>
+            <a href="/workouts">View full history</a>
         </section>
     </main>
 
     <dialog id="log-workout-modal">
-        <p>Log Workout form arrives in M3.</p>
-        <button type="button" data-modal-close>Close</button>
+        <form id="log-workout-form" novalidate>
+            <h2>Log a Workout</h2>
+            <p class="error" data-error-for="_form"></p>
+
+            <div class="field">
+                <label for="type">Type</label>
+                <select id="type" name="type" required>
+                    <option value="run">Run</option>
+                    <option value="walk">Walk</option>
+                    <option value="strength_training">Strength training</option>
+                    <option value="swim">Swim</option>
+                    <option value="cycle">Cycle</option>
+                    <option value="other">Other</option>
+                </select>
+                <p class="error" data-error-for="type"></p>
+            </div>
+
+            <div class="field">
+                <label for="duration_minutes">Duration (min)</label>
+                <input type="number" id="duration_minutes" name="duration_minutes" required min="1">
+                <p class="error" data-error-for="duration_minutes"></p>
+            </div>
+
+            <div class="field">
+                <label for="feeling">How did it feel?</label>
+                <select id="feeling" name="feeling" required>
+                    <option value="great">Great</option>
+                    <option value="good">Good</option>
+                    <option value="okay">Okay</option>
+                    <option value="tough">Tough</option>
+                    <option value="exhausting">Exhausting</option>
+                </select>
+                <p class="error" data-error-for="feeling"></p>
+            </div>
+
+            <button type="submit">Save Workout</button>
+            <button type="button" data-modal-close>Cancel</button>
+        </form>
     </dialog>
 
     <dialog id="ai-recommendation-modal">

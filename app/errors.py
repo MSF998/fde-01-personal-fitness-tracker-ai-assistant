@@ -8,6 +8,9 @@ FIELD_MESSAGES = {
     "fitness_goal": "Fitness goal must be 'lose_weight' or 'build_strength'.",
     "height_cm": "Height must be a realistic number in cm (100-250).",
     "weight_kg": "Weight must be a realistic number in kg (30-300).",
+    "type": "Type must be one of: run, walk, strength_training, swim, cycle, other.",
+    "duration_minutes": "Duration must be greater than zero.",
+    "feeling": "Feeling must be one of: great, good, okay, tough, exhausting.",
 }
 
 

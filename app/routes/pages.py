@@ -2,6 +2,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from app.data_access import get_profile, list_workouts
+from app.formatting import group_by_day_label
 from app.formulas import calculate_bmi, calculate_estimated_daily_calories
 from app.templating import templates
 
@@ -33,3 +34,10 @@ def profile_new(request: Request):
     if get_profile() is not None:
         return RedirectResponse(url="/", status_code=303)
     return templates.TemplateResponse(request, "profile_new.html", {})
+
+
+@router.get("/workouts", response_class=HTMLResponse)
+def workout_history(request: Request):
+    """docs/wireframes.md Screen 4 — most-recent-first, grouped by date."""
+    groups = group_by_day_label(list_workouts())
+    return templates.TemplateResponse(request, "workouts.html", {"groups": groups})
