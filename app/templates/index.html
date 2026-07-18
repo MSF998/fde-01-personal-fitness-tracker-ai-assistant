@@ -79,10 +79,36 @@
     </dialog>
 
     <dialog id="ai-recommendation-modal">
-        <p>AI Recommendation arrives in M5.</p>
-        <button type="button" data-modal-close>Close</button>
+        <div id="ai-reco-request">
+            <h2>Get AI Recommendation</h2>
+            <div class="field">
+                <label for="ai-message">Ask something specific? (optional)</label>
+                <input type="text" id="ai-message" maxlength="500">
+            </div>
+            <button type="button" id="ai-reco-submit">Get Recommendation</button>
+            <button type="button" data-modal-close>Cancel</button>
+        </div>
+
+        <div id="ai-reco-loading" hidden>
+            <p>Getting your recommendation&hellip;</p>
+        </div>
+
+        <div id="ai-reco-result" hidden>
+            <p class="badge">&#129302; AI Recommendation</p>
+            <p class="badge warn" id="ai-reco-guardrail-note" hidden>&#9888; Safety check adjusted this response</p>
+            <p id="ai-reco-text"></p>
+            <p class="disclaimer">&#9432; AI-generated &mdash; not medical advice</p>
+            <button type="button" data-modal-close>Back to Dashboard</button>
+        </div>
+
+        <div id="ai-reco-error" hidden>
+            <p class="error">Couldn't get a recommendation right now. Please try again.</p>
+            <button type="button" id="ai-reco-retry">Retry</button>
+            <button type="button" data-modal-close>Cancel</button>
+        </div>
     </dialog>
 
     <script src="/static/js/dashboard.js"></script>
+    <script src="/static/js/ai-recommendation.js"></script>
 </body>
 </html>

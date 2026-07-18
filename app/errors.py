@@ -2,6 +2,8 @@ from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
+from app.ai_client import AIServiceError
+
 FIELD_MESSAGES = {
     "name": "Name must be between 1 and 100 characters.",
     "age": "Age must be a positive, realistic number (13-100).",
@@ -30,6 +32,20 @@ async def validation_error_handler(
                 "code": "validation_error",
                 "message": "One or more fields are invalid.",
                 "fields": fields,
+            }
+        },
+    )
+
+
+async def ai_service_error_handler(request: Request, exc: AIServiceError) -> JSONResponse:
+    """docs/nfr-guardrail-spec.md §4 — exact structured AI-service-failure shape.
+    503 since the failure is the upstream service being unreachable, not a client error."""
+    return JSONResponse(
+        status_code=503,
+        content={
+            "error": {
+                "code": "ai_service_unavailable",
+                "message": "Couldn't get a recommendation right now. Please try again.",
             }
         },
     )

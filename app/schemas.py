@@ -76,3 +76,20 @@ class ProgressResponse(BaseModel):
     total_duration_minutes: int
     workout_frequency: list[ProgressFrequencyPoint]
     duration_trend: list[ProgressDurationPoint]
+
+
+GuardrailCategory = Literal["crash_diet", "medical_diagnosis", "unrealistic_timeline"]
+
+
+class RecommendationRequest(BaseModel):
+    """docs/lld.md §4 — POST /api/recommendation request. PRD Feature 3 AC5's optional field."""
+
+    message: str | None = Field(default=None, max_length=500)
+
+
+class RecommendationResponse(BaseModel):
+    """docs/lld.md §4 — POST /api/recommendation response."""
+
+    recommendation: str
+    guardrail_triggered: bool
+    guardrail_category: GuardrailCategory | None = None

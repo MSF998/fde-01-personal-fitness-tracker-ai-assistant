@@ -79,3 +79,27 @@ dialog::backdrop {
     font-style: italic;
     margin-bottom: 0.5rem;
 }
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    background: #f6f8fa;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+}
+
+.badge.warn {
+    color: #b91c1c;
+    border-color: #b91c1c;
+    background: #fef2f2;
+}
+
+.disclaimer {
+    font-size: 0.75rem;
+    color: #666;
+    border-top: 1px solid #eee;
+    padding-top: 0.5rem;
+}
