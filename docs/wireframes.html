@@ -1,0 +1,448 @@
+<title>Fitness Tracker Wireframes</title>
+<style>
+  :root{
+    --bg:#eef1f4; --grid:#dbe1e8; --surface:#ffffff; --surface-2:#f6f8fa;
+    --border:#64748b; --border-soft:#c7d0da; --ink:#1e2733; --muted:#6b7685;
+    --redline:#c2410c; --redline-soft:#c2410c1a; --warn:#b91c1c; --warn-soft:#b91c1c14;
+    --ok:#166534;
+    --mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Consolas, "Liberation Mono", monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#11151b; --grid:#1c232c; --surface:#1a2029; --surface-2:#151a21;
+      --border:#7a8698; --border-soft:#39424e; --ink:#e7ebf0; --muted:#8b96a5;
+      --redline:#fb923c; --redline-soft:#fb923c22; --warn:#f87171; --warn-soft:#f8717122;
+      --ok:#4ade80;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#11151b; --grid:#1c232c; --surface:#1a2029; --surface-2:#151a21;
+    --border:#7a8698; --border-soft:#39424e; --ink:#e7ebf0; --muted:#8b96a5;
+    --redline:#fb923c; --redline-soft:#fb923c22; --warn:#f87171; --warn-soft:#f8717122;
+    --ok:#4ade80;
+  }
+  :root[data-theme="light"]{
+    --bg:#eef1f4; --grid:#dbe1e8; --surface:#ffffff; --surface-2:#f6f8fa;
+    --border:#64748b; --border-soft:#c7d0da; --ink:#1e2733; --muted:#6b7685;
+    --redline:#c2410c; --redline-soft:#c2410c1a; --warn:#b91c1c; --warn-soft:#b91c1c14;
+    --ok:#166534;
+  }
+
+  *{box-sizing:border-box;}
+  .page{
+    background-color:var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:28px 28px;
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100%;
+    padding-bottom:64px;
+  }
+
+  .topbar{
+    position:sticky; top:0; z-index:5;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:14px 28px;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--border-soft);
+    flex-wrap:wrap;
+  }
+  .brand{font-family:var(--mono); font-weight:600; font-size:13px; letter-spacing:.06em;}
+  .brand-sub{color:var(--muted); font-weight:400;}
+  .jumpnav{display:flex; gap:6px; flex-wrap:wrap;}
+  .jumpnav a{
+    font-family:var(--mono); font-size:11px; letter-spacing:.03em;
+    color:var(--muted); text-decoration:none;
+    padding:5px 10px; border:1px solid var(--border-soft); border-radius:3px;
+    white-space:nowrap;
+  }
+  .jumpnav a:hover, .jumpnav a:focus-visible{border-color:var(--redline); color:var(--redline); outline:none;}
+
+  .intro{max-width:760px; margin:0 auto; padding:48px 28px 40px;}
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--redline);
+    margin:0 0 10px;
+  }
+  h1{
+    font-family:var(--mono); font-size:clamp(24px,3.4vw,32px); font-weight:700;
+    letter-spacing:-0.01em; margin:0 0 14px; text-wrap:balance;
+  }
+  .dek{color:var(--muted); font-size:15px; line-height:1.6; max-width:62ch; margin:0 0 22px;}
+
+  .legend{display:flex; flex-wrap:wrap; gap:10px 18px; padding:14px 16px; background:var(--surface); border:1px solid var(--border-soft); border-radius:4px;}
+  .legend-item{display:flex; align-items:center; gap:7px; font-size:12px; color:var(--muted); font-family:var(--mono);}
+  .legend-swatch{width:20px; height:14px; border:1.5px solid var(--border); border-radius:2px; flex:none;}
+  .legend-swatch.dashed{border-style:dashed; border-color:var(--border-soft);}
+  .legend-swatch.err{border-color:var(--warn);}
+  .legend-swatch.btn{background:var(--surface-2); border-width:2px;}
+
+  section.screen{max-width:1180px; margin:0 auto; padding:36px 28px; border-top:1px solid var(--border-soft);}
+  .tag{
+    font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--redline);
+    margin:0 0 8px; display:flex; align-items:center; gap:8px;
+  }
+  .tag .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:20px; height:20px; border:1px solid var(--redline); border-radius:3px;
+    font-weight:700; color:var(--redline);
+  }
+  h2{font-family:var(--mono); font-size:19px; font-weight:700; margin:0 0 4px;}
+  .screen-note{color:var(--muted); font-size:13px; margin:0 0 22px; max-width:70ch; line-height:1.55;}
+
+  .frames{display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start;}
+  .frame-col{display:flex; flex-direction:column; gap:8px;}
+  .state-chip{
+    align-self:flex-start; font-family:var(--mono); font-size:10.5px; font-weight:700;
+    letter-spacing:.06em; color:var(--redline); background:var(--redline-soft);
+    padding:3px 8px; border-radius:3px;
+  }
+  .frame{
+    width:322px; background:var(--surface); border:1px solid var(--border);
+    border-radius:5px; overflow:hidden; box-shadow:0 1px 0 var(--border-soft);
+  }
+  .framehead{
+    display:flex; gap:5px; align-items:center; padding:8px 10px;
+    border-bottom:1px solid var(--border-soft); background:var(--surface-2);
+  }
+  .framehead .dot{width:7px; height:7px; border-radius:50%; border:1px solid var(--border-soft);}
+  .mock{padding:16px; display:flex; flex-direction:column; gap:12px;}
+
+  .field label{display:block; font-size:11px; color:var(--muted); margin-bottom:5px; font-family:var(--mono); letter-spacing:.02em;}
+  .field .box{
+    border:1px solid var(--border); border-radius:3px; padding:9px 10px;
+    font-size:13px; color:var(--ink); background:var(--surface); display:flex; justify-content:space-between; align-items:center;
+  }
+  .field .box.invalid{border-color:var(--warn);}
+  .field .ph{color:var(--muted);}
+  .caret{color:var(--muted); font-size:11px;}
+  .errmsg{display:flex; gap:6px; align-items:flex-start; font-size:12px; color:var(--warn); background:var(--warn-soft); border-radius:3px; padding:6px 8px;}
+
+  .btn{
+    text-align:center; padding:10px 14px; border:1.5px solid var(--ink); border-radius:3px;
+    font-size:13px; font-weight:600; color:var(--ink); background:var(--surface-2);
+  }
+  .btn.ghost{border-style:dashed; border-color:var(--border-soft); color:var(--muted); font-weight:400;}
+  .btn.link{border:none; background:none; color:var(--muted); text-decoration:underline; padding:2px;}
+
+  .row3{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
+  .tile{border:1px solid var(--border); border-radius:4px; padding:10px 6px; text-align:center; font-size:11.5px; font-weight:600; background:var(--surface-2);}
+
+  .kpis{display:flex; gap:14px; font-size:12px; color:var(--muted);}
+  .kpis b{color:var(--ink); font-family:var(--mono); font-variant-numeric:tabular-nums;}
+
+  .list .item{display:flex; justify-content:space-between; gap:8px; padding:8px 0; border-bottom:1px dashed var(--border-soft); font-size:12.5px;}
+  .list .item:last-child{border-bottom:none;}
+  .list .item .meta{color:var(--muted); white-space:nowrap;}
+  .list .daylabel{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.04em; margin-top:6px;}
+  .list .daylabel:first-child{margin-top:0;}
+
+  .chartbox{
+    border:1.5px dashed var(--border-soft); border-radius:4px; padding:10px;
+    display:flex; flex-direction:column; gap:6px; align-items:center;
+  }
+  .chartbox .cap{font-size:11px; color:var(--muted); font-style:italic;}
+  .spark{width:100%; height:46px;}
+  .spark path{fill:none; stroke:var(--border); stroke-width:1.5;}
+  .spark circle{fill:var(--redline);}
+
+  .badge{display:inline-flex; align-items:center; gap:5px; font-size:11px; font-family:var(--mono); color:var(--muted); background:var(--surface-2); border:1px solid var(--border-soft); border-radius:3px; padding:3px 7px; align-self:flex-start;}
+  .badge.warn{color:var(--warn); border-color:var(--warn); background:var(--warn-soft);}
+
+  .skeleton{height:11px; border-radius:2px; background:linear-gradient(90deg, var(--border-soft) 25%, var(--surface-2) 37%, var(--border-soft) 63%); background-size:400% 100%; animation:shimmer 1.6s ease-in-out infinite;}
+  .skeleton.w60{width:60%;} .skeleton.w80{width:80%;} .skeleton.w40{width:40%;}
+  @keyframes shimmer{0%{background-position:100% 0;} 100%{background-position:0 0;}}
+  @media (prefers-reduced-motion: reduce){ .skeleton{animation:none;} }
+
+  .aitext{font-size:12.5px; line-height:1.6; color:var(--ink);}
+  .disclaimer{font-size:11px; color:var(--muted); display:flex; gap:5px; align-items:flex-start; border-top:1px solid var(--border-soft); padding-top:8px;}
+
+  .foot{max-width:1180px; margin:40px auto 0; padding:0 28px; color:var(--muted); font-size:12px; font-family:var(--mono); border-top:1px solid var(--border-soft); padding-top:18px;}
+  .foot a{color:var(--redline);}
+</style>
+
+<div class="page">
+  <div class="topbar">
+    <div class="brand">WIREFRAMES <span class="brand-sub">/ personal fitness tracker — draft v1</span></div>
+    <nav class="jumpnav">
+      <a href="#s1">01 Profile</a>
+      <a href="#s2">02 Dashboard</a>
+      <a href="#s3">03 Log Workout</a>
+      <a href="#s4">04 History</a>
+      <a href="#s5">05 AI Reco</a>
+      <a href="#s6">06 Progress</a>
+    </nav>
+  </div>
+
+  <div class="intro">
+    <p class="eyebrow">SPEC SHEET · derived from user-flows.md · 2026-07-18</p>
+    <h1>Personal Fitness Tracker — Wireframes</h1>
+    <p class="dek">Low-fidelity screen layouts. Structure and content only — the boxes on the canvas below are deliberately unstyled; the only designed color in this document is the burnt-orange annotation ink marking screen tags, state labels, and spec references. Shown at a single ~340px viewport width; responsive behavior is a later decision.</p>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-swatch"></span>text input</div>
+      <div class="legend-item"><span class="legend-swatch"></span>dropdown ▾</div>
+      <div class="legend-item"><span class="legend-swatch btn"></span>primary action</div>
+      <div class="legend-item"><span class="legend-swatch err"></span>invalid / error</div>
+      <div class="legend-item"><span class="legend-swatch dashed"></span>placeholder region</div>
+      <div class="legend-item"><span class="state-chip" style="position:static;">STATE</span>alternate state of same screen</div>
+    </div>
+  </div>
+
+  <!-- SCREEN 1 — PROFILE SETUP -->
+  <section id="s1" class="screen">
+    <p class="tag"><span class="num">1</span>ONBOARDING FLOW → PRD FEATURE 1 · AC1–AC3</p>
+    <h2>Profile Setup</h2>
+    <p class="screen-note">The Fitness Goal field is the single control that drives the two persona variants from PRD §3 ("Lose weight" / "Build strength"). Errors are inline and block submission.</p>
+    <div class="frames">
+      <div class="frame-col">
+        <span class="state-chip">DEFAULT</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="field"><label>Name</label><div class="box"><span class="ph">e.g. Priya Shah</span></div></div>
+            <div class="field"><label>Age</label><div class="box"><span class="ph">32</span></div></div>
+            <div class="field"><label>Fitness goal</label><div class="box">Lose weight <span class="caret">▾</span></div></div>
+            <div class="field"><label>Height (cm)</label><div class="box"><span class="ph">168</span></div></div>
+            <div class="field"><label>Weight (kg)</label><div class="box"><span class="ph">72</span></div></div>
+            <div class="btn">Save &amp; Continue</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-col">
+        <span class="state-chip">ERROR — AC2</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="field"><label>Name</label><div class="box">Priya Shah</div></div>
+            <div class="field"><label>Age</label><div class="box invalid">-5</div>
+              <div class="errmsg">⚠ Age must be a positive, realistic number</div>
+            </div>
+            <div class="field"><label>Fitness goal</label><div class="box">Build strength <span class="caret">▾</span></div></div>
+            <div class="btn ghost">Save &amp; Continue</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 — DASHBOARD -->
+  <section id="s2" class="screen">
+    <p class="tag"><span class="num">2</span>NAVIGATION MAP → HUB SCREEN FOR ALL FEATURES</p>
+    <h2>Dashboard / Home</h2>
+    <p class="screen-note">BMI and calorie estimate are computed once at profile save, displayed here on every visit. The three tiles are the entry points into the other three feature flows.</p>
+    <div class="frames">
+      <div class="frame-col">
+        <span class="state-chip">DEFAULT</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="kpis"><span>Hi, Priya</span></div>
+            <div class="kpis"><span>BMI <b>23.4</b></span><span>Est. calories/day <b>2,100</b></span></div>
+            <div class="row3">
+              <div class="tile">Log Workout</div>
+              <div class="tile">Get AI Recommendation</div>
+              <div class="tile">View Progress</div>
+            </div>
+            <div class="list">
+              <div class="daylabel">RECENT ACTIVITY</div>
+              <div class="item"><span>Run</span><span class="meta">30 min · felt good</span></div>
+              <div class="item"><span>Strength training</span><span class="meta">45 min · felt tough</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-col">
+        <span class="state-chip">FIRST VISIT</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="kpis"><span>Hi, Priya</span></div>
+            <div class="kpis"><span>BMI <b>23.4</b></span><span>Est. calories/day <b>2,100</b></span></div>
+            <div class="row3">
+              <div class="tile">Log Workout</div>
+              <div class="tile">Get AI Recommendation</div>
+              <div class="tile">View Progress</div>
+            </div>
+            <div class="list">
+              <div class="daylabel">RECENT ACTIVITY</div>
+              <div class="item" style="color:var(--muted); justify-content:center; border-bottom:none;">No workouts logged yet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 3 — LOG WORKOUT -->
+  <section id="s3" class="screen">
+    <p class="tag"><span class="num">3</span>LOG A WORKOUT FLOW → PRD FEATURE 2 · AC1–AC2</p>
+    <h2>Log Workout</h2>
+    <p class="screen-note">Duration must be greater than zero (AC2) — enforced inline, same pattern as Profile Setup's validation.</p>
+    <div class="frames">
+      <div class="frame-col">
+        <span class="state-chip">DEFAULT</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="field"><label>Type</label><div class="box">Run <span class="caret">▾</span></div></div>
+            <div class="field"><label>Duration (min)</label><div class="box"><span class="ph">30</span></div></div>
+            <div class="field"><label>How did it feel?</label><div class="box">Good <span class="caret">▾</span></div></div>
+            <div class="btn">Save Workout</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-col">
+        <span class="state-chip">ERROR — AC2</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="field"><label>Type</label><div class="box">Run <span class="caret">▾</span></div></div>
+            <div class="field"><label>Duration (min)</label><div class="box invalid">0</div>
+              <div class="errmsg">⚠ Duration must be greater than zero</div>
+            </div>
+            <div class="btn ghost">Save Workout</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 4 — WORKOUT HISTORY -->
+  <section id="s4" class="screen">
+    <p class="tag"><span class="num">4</span>LOG A WORKOUT FLOW (POST-SAVE) → PRD FEATURE 2 · AC3</p>
+    <h2>Workout History</h2>
+    <p class="screen-note">Most-recent-first, grouped by date — AC3's explicit ordering requirement.</p>
+    <div class="frames">
+      <div class="frame-col">
+        <span class="state-chip">DEFAULT</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="list">
+              <div class="daylabel">TODAY</div>
+              <div class="item"><span>Run</span><span class="meta">30 min · felt good</span></div>
+              <div class="daylabel">YESTERDAY</div>
+              <div class="item"><span>Strength training</span><span class="meta">45 min · felt tough</span></div>
+              <div class="daylabel">JUL 15</div>
+              <div class="item"><span>Swim</span><span class="meta">20 min · felt okay</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 5 — AI RECOMMENDATION -->
+  <section id="s5" class="screen">
+    <p class="tag"><span class="num">5</span>REQUEST AI RECOMMENDATION FLOW → PRD FEATURE 3 AC1–AC5 · FEATURE 5 AC1–AC4</p>
+    <h2>AI Recommendation</h2>
+    <p class="screen-note">The guardrail state is the one that matters most for the demo — it must be visibly transparent, never a silent swap (Feature 5, AC4). The optional request field (AC5, added 2026-07-18) is what makes the guardrail demoable live — type an unsafe request and watch it get caught, rather than hoping the AI volunteers something unsafe on its own.</p>
+    <div class="frames">
+      <div class="frame-col">
+        <span class="state-chip">DEFAULT — AC5</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="field"><label>Ask something specific? (optional)</label><div class="box"><span class="ph">e.g. give me an 800-calorie diet plan</span></div></div>
+            <div class="btn">Get Recommendation</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-col">
+        <span class="state-chip">LOADING</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div style="font-size:12px; color:var(--muted);">Getting your recommendation…</div>
+            <div class="skeleton w80"></div>
+            <div class="skeleton w60"></div>
+            <div class="skeleton w40"></div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-col">
+        <span class="state-chip">RESULT — AC4</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="badge">🤖 AI RECOMMENDATION</div>
+            <div class="aitext">Based on your recent runs, try adding one short strength session this week to balance your training.</div>
+            <div class="disclaimer">ⓘ AI-generated — not medical advice</div>
+            <div class="btn link">Back to Dashboard</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-col">
+        <span class="state-chip">GUARDRAIL TRIGGERED</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="badge">🤖 AI RECOMMENDATION</div>
+            <div class="badge warn">⚠ Safety check adjusted this response</div>
+            <div class="aitext">A large calorie deficit isn't safe to sustain. Instead, aim for a moderate deficit paired with your current activity level.</div>
+            <div class="disclaimer">ⓘ AI-generated — not medical advice</div>
+            <div class="btn link">Back to Dashboard</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-col">
+        <span class="state-chip">ERROR — F3 AC3</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="errmsg">⚠ Couldn't get a recommendation right now. Please try again.</div>
+            <div class="btn ghost">Retry</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 6 — PROGRESS VIEW -->
+  <section id="s6" class="screen">
+    <p class="tag"><span class="num">6</span>VIEW PROGRESS FLOW → PRD FEATURE 4 · AC1–AC3</p>
+    <h2>Progress View</h2>
+    <p class="screen-note">Empty state is first-class, not an afterthought — it's what every user sees immediately after onboarding, before their first log. Chart types shown are placeholders; exact chart choice is an LLD decision.</p>
+    <div class="frames">
+      <div class="frame-col">
+        <span class="state-chip">EMPTY — AC2</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock" style="align-items:center; text-align:center; padding:34px 16px;">
+            <div style="font-size:12.5px; color:var(--muted);">You haven't logged a workout yet.</div>
+            <div class="btn">Log Your First Workout</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-col">
+        <span class="state-chip">POPULATED — AC1 &amp; AC3</span>
+        <div class="frame">
+          <div class="framehead"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mock">
+            <div class="field"><label>Range</label><div class="box">Month <span class="caret">▾</span></div></div>
+            <div class="kpis"><span>Total workouts <b>12</b></span><span>Total duration <b>6h 40m</b></span></div>
+            <div class="chartbox">
+              <span class="cap">Workout frequency</span>
+              <svg class="spark" viewBox="0 0 280 46" preserveAspectRatio="none">
+                <path d="M0,34 L35,26 L70,30 L105,16 L140,22 L175,10 L210,14 L245,6 L280,12" />
+                <circle cx="280" cy="12" r="2.5"/>
+              </svg>
+            </div>
+            <div class="chartbox">
+              <span class="cap">Volume / duration trend</span>
+              <svg class="spark" viewBox="0 0 280 46" preserveAspectRatio="none">
+                <path d="M0,40 L35,32 L70,34 L105,20 L140,24 L175,12 L210,18 L245,8 L280,4" />
+                <circle cx="280" cy="4" r="2.5"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">Derived from <a>user-flows.md</a> and <a>PRD.md</a> — every screen and state above traces to a specific flow step and acceptance criterion. No open questions at this stage.</div>
+</div>
