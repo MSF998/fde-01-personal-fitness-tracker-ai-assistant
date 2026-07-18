@@ -1,3 +1,4 @@
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -10,6 +11,10 @@ from app.database import init_db
 from app.errors import ai_service_error_handler, validation_error_handler
 from app.routes import pages, profile_api, progress_api, recommendation_api, workout_api
 from app.templating import BASE_DIR
+
+# docs/nfr-guardrail-spec.md §5 — guardrail triggers and AI-service failures are logged
+# to console with category + timestamp. No external logging infra needed (solo/local scope).
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 
 
 @asynccontextmanager

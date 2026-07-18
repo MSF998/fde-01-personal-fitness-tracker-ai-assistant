@@ -1,8 +1,12 @@
+import logging
+
 from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 from app.ai_client import AIServiceError
+
+logger = logging.getLogger(__name__)
 
 FIELD_MESSAGES = {
     "name": "Name must be between 1 and 100 characters.",
@@ -14,6 +18,7 @@ FIELD_MESSAGES = {
     "duration_minutes": "Duration must be greater than zero.",
     "feeling": "Feeling must be one of: great, good, okay, tough, exhausting.",
     "range": "Range must be one of: week, month, year.",
+    "message": "Request must be 500 characters or fewer.",
 }
 
 
@@ -40,6 +45,7 @@ async def validation_error_handler(
 async def ai_service_error_handler(request: Request, exc: AIServiceError) -> JSONResponse:
     """docs/nfr-guardrail-spec.md §4 — exact structured AI-service-failure shape.
     503 since the failure is the upstream service being unreachable, not a client error."""
+    logger.warning("AI service unavailable: %s", exc)
     return JSONResponse(
         status_code=503,
         content={

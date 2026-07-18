@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import APIRouter
 
 from app.ai_client import SYSTEM_PROMPT, build_user_message, get_ai_response
@@ -7,6 +9,7 @@ from app.guardrail import check_guardrail
 from app.schemas import RecommendationRequest, RecommendationResponse
 
 router = APIRouter(prefix="/api")
+logger = logging.getLogger(__name__)
 
 
 @router.post("/recommendation", response_model=RecommendationResponse)
@@ -28,6 +31,7 @@ async def get_recommendation(payload: RecommendationRequest) -> RecommendationRe
     trigger = check_guardrail(combined_text, estimated_daily_calories)
 
     if trigger:
+        logger.info("guardrail triggered category=%s", trigger["category"])
         return RecommendationResponse(
             recommendation=trigger["message"],
             guardrail_triggered=True,
