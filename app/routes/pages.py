@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 
-from app.data_access import get_profile
+from app.data_access import get_profile, list_workouts
 from app.formulas import calculate_bmi, calculate_estimated_daily_calories
 from app.templating import templates
 
@@ -10,7 +10,8 @@ router = APIRouter()
 
 @router.get("/", response_class=HTMLResponse)
 def dashboard(request: Request):
-    """docs/user-flows.md Flow 1/0 — redirect-if-no-profile. Full Dashboard is M2's job."""
+    """docs/wireframes.md Screen 2. Log Workout / Get AI Recommendation tiles open placeholder
+    modals until M3/M5 fill them in; View Progress links to /progress (404 until M4)."""
     profile = get_profile()
     if profile is None:
         return RedirectResponse(url="/profile/new", status_code=303)
@@ -21,6 +22,7 @@ def dashboard(request: Request):
         "estimated_daily_calories": calculate_estimated_daily_calories(
             profile["weight_kg"], profile["height_cm"], profile["age"]
         ),
+        "workouts": list_workouts(limit=5),
     }
     return templates.TemplateResponse(request, "index.html", context)
 

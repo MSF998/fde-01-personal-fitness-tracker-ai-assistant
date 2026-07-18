@@ -52,3 +52,16 @@ def save_profile(data: dict) -> dict:
         conn.commit()
         row = conn.execute("SELECT * FROM profile ORDER BY id LIMIT 1").fetchone()
         return dict(row)
+
+
+def list_workouts(limit: int | None = None) -> list[dict]:
+    """Most-recent-first (docs/lld.md PRD Feature 2 AC3). Shared by Dashboard's recent-activity
+    list (M2, limited) and the full Workout History page (M3, unlimited)."""
+    query = "SELECT * FROM workout ORDER BY logged_at DESC, id DESC"
+    params: tuple = ()
+    if limit is not None:
+        query += " LIMIT ?"
+        params = (limit,)
+    with get_connection() as conn:
+        rows = conn.execute(query, params).fetchall()
+        return [dict(row) for row in rows]

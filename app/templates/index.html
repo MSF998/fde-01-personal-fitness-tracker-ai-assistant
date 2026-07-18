@@ -3,15 +3,47 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Personal Fitness Tracker</title>
+    <title>Dashboard — Personal Fitness Tracker</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+    <header>
+        <h1>Fitness Tracker</h1>
+    </header>
     <main>
-        <h1>Personal Fitness Tracker</h1>
-        <p>Welcome back, {{ profile.name }}.</p>
+        <p>Hi, {{ profile.name }}</p>
         <p>BMI: {{ bmi }} &middot; Est. daily calories: {{ estimated_daily_calories }}</p>
-        <p>The full Dashboard (action tiles, recent activity) arrives in M2.</p>
+
+        <div class="tiles">
+            <button type="button" class="tile" data-modal-target="log-workout-modal">Log Workout</button>
+            <button type="button" class="tile" data-modal-target="ai-recommendation-modal">Get AI Recommendation</button>
+            <a class="tile" href="/progress">View Progress</a>
+        </div>
+
+        <section>
+            <h2>Recent Activity</h2>
+            {% if workouts %}
+            <ul class="activity-list">
+                {% for workout in workouts %}
+                <li>{{ workout.type }} &middot; {{ workout.duration_minutes }} min &middot; felt {{ workout.feeling }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No workouts logged yet.</p>
+            {% endif %}
+        </section>
     </main>
+
+    <dialog id="log-workout-modal">
+        <p>Log Workout form arrives in M3.</p>
+        <button type="button" data-modal-close>Close</button>
+    </dialog>
+
+    <dialog id="ai-recommendation-modal">
+        <p>AI Recommendation arrives in M5.</p>
+        <button type="button" data-modal-close>Close</button>
+    </dialog>
+
+    <script src="/static/js/dashboard.js"></script>
 </body>
 </html>
