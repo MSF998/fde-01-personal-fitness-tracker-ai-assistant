@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Set Up Your Profile — Personal Fitness Tracker</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <main>
+        <h1>Set Up Your Profile</h1>
+        <form id="profile-form" novalidate>
+            <p class="error" data-error-for="_form"></p>
+
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required maxlength="100">
+                <p class="error" data-error-for="name"></p>
+            </div>
+
+            <div class="field">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" required min="13" max="100">
+                <p class="error" data-error-for="age"></p>
+            </div>
+
+            <div class="field">
+                <label for="fitness_goal">Fitness goal</label>
+                <select id="fitness_goal" name="fitness_goal" required>
+                    <option value="lose_weight">Lose weight</option>
+                    <option value="build_strength">Build strength</option>
+                </select>
+                <p class="error" data-error-for="fitness_goal"></p>
+            </div>
+
+            <div class="field">
+                <label for="height_cm">Height (cm)</label>
+                <input type="number" id="height_cm" name="height_cm" required min="100" max="250" step="0.1">
+                <p class="error" data-error-for="height_cm"></p>
+            </div>
+
+            <div class="field">
+                <label for="weight_kg">Weight (kg)</label>
+                <input type="number" id="weight_kg" name="weight_kg" required min="30" max="300" step="0.1">
+                <p class="error" data-error-for="weight_kg"></p>
+            </div>
+
+            <button type="submit">Save &amp; Continue</button>
+        </form>
+    </main>
+    <script src="/static/js/profile-form.js"></script>
+</body>
+</html>

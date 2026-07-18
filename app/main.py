@@ -1,15 +1,14 @@
 from contextlib import asynccontextmanager
-from pathlib import Path
 
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 
 from app import config  # noqa: F401  (loads .env / OPENROUTER_API_KEY on import)
 from app.database import init_db
-
-BASE_DIR = Path(__file__).resolve().parent
+from app.errors import validation_error_handler
+from app.routes import pages, profile_api
+from app.templating import BASE_DIR
 
 
 @asynccontextmanager
@@ -20,10 +19,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Personal Fitness Tracker", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
-templates = Jinja2Templates(directory=BASE_DIR / "templates")
+app.add_exception_handler(RequestValidationError, validation_error_handler)
 
-
-@app.get("/", response_class=HTMLResponse)
-def placeholder(request: Request):
-    """M0 scaffolding placeholder — replaced by the real Dashboard/redirect logic in M1/M2."""
-    return templates.TemplateResponse(request, "index.html", {})
+app.include_router(pages.router)
+app.include_router(profile_api.router)
