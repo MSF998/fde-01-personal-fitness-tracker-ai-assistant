@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Personal Fitness Tracker — local SQLite data (docs/lld.md §3)
+data/*.db
+data/*.db-journal
+
