@@ -15,9 +15,9 @@
         <p>BMI: {{ bmi }} &middot; Est. daily calories: {{ estimated_daily_calories }}</p>
 
         <div class="tiles">
-            <button type="button" class="tile" data-modal-target="log-workout-modal">Log Workout</button>
-            <button type="button" class="tile" data-modal-target="ai-recommendation-modal">Get AI Recommendation</button>
-            <a class="tile" href="/progress">View Progress</a>
+            <button type="button" class="tile tile-action" data-modal-target="log-workout-modal">Log Workout</button>
+            <button type="button" class="tile tile-action" data-modal-target="ai-recommendation-modal">Get AI Recommendation</button>
+            <a class="tile tile-nav" href="/progress">View Progress <span class="arrow">&rarr;</span></a>
         </div>
 
         <section>
@@ -73,8 +73,8 @@
                 <p class="error" data-error-for="feeling"></p>
             </div>
 
-            <button type="submit">Save Workout</button>
-            <button type="button" data-modal-close>Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Workout</button>
+            <button type="button" class="btn btn-secondary" data-modal-close>Cancel</button>
         </form>
     </dialog>
 
@@ -85,8 +85,8 @@
                 <label for="ai-message">Ask something specific? (optional)</label>
                 <input type="text" id="ai-message" maxlength="500">
             </div>
-            <button type="button" id="ai-reco-submit">Get Recommendation</button>
-            <button type="button" data-modal-close>Cancel</button>
+            <button type="button" class="btn btn-primary" id="ai-reco-submit">Get Recommendation</button>
+            <button type="button" class="btn btn-secondary" data-modal-close>Cancel</button>
         </div>
 
         <div id="ai-reco-loading" hidden>
@@ -94,17 +94,17 @@
         </div>
 
         <div id="ai-reco-result" hidden>
-            <p class="badge">&#129302; AI Recommendation</p>
-            <p class="badge warn" id="ai-reco-guardrail-note" hidden>&#9888; Safety check adjusted this response</p>
+            <p class="badge">AI Recommendation</p>
+            <p class="badge warn" id="ai-reco-guardrail-note" hidden>Safety check adjusted this response</p>
             <p id="ai-reco-text"></p>
-            <p class="disclaimer">&#9432; AI-generated &mdash; not medical advice</p>
-            <button type="button" data-modal-close>Back to Dashboard</button>
+            <p class="disclaimer">AI-generated &mdash; not medical advice</p>
+            <button type="button" class="btn btn-secondary" data-modal-close>Back to Dashboard</button>
         </div>
 
         <div id="ai-reco-error" hidden>
             <p class="error">Couldn't get a recommendation right now. Please try again.</p>
-            <button type="button" id="ai-reco-retry">Retry</button>
-            <button type="button" data-modal-close>Cancel</button>
+            <button type="button" class="btn btn-primary" id="ai-reco-retry">Retry</button>
+            <button type="button" class="btn btn-secondary" data-modal-close>Cancel</button>
         </div>
     </dialog>
 
