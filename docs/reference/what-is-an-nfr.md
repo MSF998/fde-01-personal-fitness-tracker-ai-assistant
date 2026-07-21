@@ -141,8 +141,8 @@ has one).
 
 ## Where This Fits in the Larger Design Sequence
 
-**BRD → PRD → User Flows → Wireframes → System Design → HLD → NFRs & Guardrail Spec → LLD →
-Build Roadmap**
+**BRD → PRD → User Flows → Wireframes → UI/UX Design → System Design → HLD → NFRs & Guardrail
+Spec → LLD → Build Roadmap**
 
 NFRs sit *after* HLD and *before* LLD, not at the end of the sequence — LLD's concrete data models
 and API contracts should be written against a settled spec, not the reverse. Placing NFRs last

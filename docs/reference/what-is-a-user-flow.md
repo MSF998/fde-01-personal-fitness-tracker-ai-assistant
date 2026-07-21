@@ -116,8 +116,8 @@ flowchart TD
 
 ## Where This Fits in the Larger Design Sequence
 
-**BRD → PRD → User Flows → Wireframes → System Design → HLD → LLD → NFRs/Guardrails → Build
-Roadmap**
+**BRD → PRD → User Flows → Wireframes → UI/UX Design → System Design → HLD → NFRs & Guardrail
+Spec → LLD → Build Roadmap**
 
 User flows are the bridge between requirements (PRD) and visuals (Wireframes) — they answer "in
 what order" before Wireframes answer "what does it look like." Skipping this stage tends to

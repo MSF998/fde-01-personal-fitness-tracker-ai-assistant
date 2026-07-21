@@ -119,8 +119,8 @@ Response: { }
 
 ## Where This Fits in the Larger Design Sequence
 
-**BRD → PRD → User Flows → Wireframes → System Design → HLD → NFRs & Guardrail Spec → LLD →
-Build Roadmap**
+**BRD → PRD → User Flows → Wireframes → UI/UX Design → System Design → HLD → NFRs & Guardrail
+Spec → LLD → Build Roadmap**
 
 LLD is the last *design* document — everything after it (the Build Roadmap) is about sequencing
 implementation, not deciding what the product does or how it's shaped. That's exactly why LLD's

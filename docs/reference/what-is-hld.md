@@ -131,8 +131,8 @@ sequenceDiagram
 
 ## Where This Fits in the Larger Design Sequence
 
-**BRD → PRD → User Flows → Wireframes → System Design → HLD → NFRs & Guardrail Spec → LLD →
-Build Roadmap**
+**BRD → PRD → User Flows → Wireframes → UI/UX Design → System Design → HLD → NFRs & Guardrail
+Spec → LLD → Build Roadmap**
 
 HLD is the last stage before exact values take over. Everything through HLD is still about
 *shape and sequence* — components, routes, steps, patterns. Starting with NFRs & Guardrail Spec,

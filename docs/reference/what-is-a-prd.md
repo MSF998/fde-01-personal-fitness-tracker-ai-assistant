@@ -132,8 +132,8 @@ describes *how it's built* (database, API, framework), push it down to System De
 
 ## Where This Fits in the Larger Design Sequence
 
-**BRD → PRD → User Flows → Wireframes → System Design → HLD → LLD → NFRs/Guardrails → Build
-Roadmap**
+**BRD → PRD → User Flows → Wireframes → UI/UX Design → System Design → HLD → NFRs & Guardrail
+Spec → LLD → Build Roadmap**
 
 The PRD is the last stage that's still product-language, not engineering-language. Everything
 from User Flows onward starts translating these acceptance criteria into diagrams, screens, and

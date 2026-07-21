@@ -142,8 +142,8 @@ Don't include a section just to check a box — an empty "N/A" section is noise,
 
 BRD is typically the first of several design artifacts produced before implementation:
 
-**BRD → PRD → User Flows → Wireframes → System Design → HLD → LLD → NFRs/Guardrails → Build
-Roadmap**
+**BRD → PRD → User Flows → Wireframes → UI/UX Design → System Design → HLD → NFRs & Guardrail
+Spec → LLD → Build Roadmap**
 
 Each stage narrows scope and increases concreteness. Skipping BRD and starting at PRD is common
 for small projects — but for anything where "why" isn't obvious, writing the BRD first prevents

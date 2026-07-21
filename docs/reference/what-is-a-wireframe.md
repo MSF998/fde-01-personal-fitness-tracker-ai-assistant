@@ -115,10 +115,10 @@ the flow already defined.
 
 ## Where This Fits in the Larger Design Sequence
 
-**BRD → PRD → User Flows → Wireframes → System Design → HLD → LLD → NFRs/Guardrails → Build
-Roadmap**
+**BRD → PRD → User Flows → Wireframes → UI/UX Design → System Design → HLD → NFRs & Guardrail
+Spec → LLD → Build Roadmap**
 
-Wireframes are the last stage before the documents shift from product/design language into
-engineering language. Getting states and content right here is cheap; getting them wrong and
+Wireframes are the last stage before a dedicated visual design pass (if the project warrants one)
+and, after that, the documents shift from product/design language into engineering language. Getting states and content right here is cheap; getting them wrong and
 discovering it once System Design or LLD is underway is not — a missing empty state or an
 unanchored screen surfaces as a scramble mid-build instead of a five-minute fix on a wireframe.

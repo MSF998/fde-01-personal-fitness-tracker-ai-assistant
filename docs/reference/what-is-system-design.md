@@ -142,11 +142,12 @@ sequenceDiagram
 
 ## Where This Fits in the Larger Design Sequence
 
-**BRD → PRD → User Flows → Wireframes → System Design → HLD → NFRs & Guardrail Spec → LLD →
-Build Roadmap**
+**BRD → PRD → User Flows → Wireframes → UI/UX Design → System Design → HLD → NFRs & Guardrail
+Spec → LLD → Build Roadmap**
 
-System Design is the hinge point of the whole sequence — everything before it is product/design
-language, everything after it is engineering language built on the shape decided here. Note NFRs
+System Design is the hinge point of the whole sequence — everything before it (including a
+dedicated visual design pass, if the project has one) is product/design language, everything
+after it is engineering language built on the shape decided here. Note NFRs
 sit *after* HLD and *before* LLD, not at the very end: LLD's concrete API contracts and data
 models should be written against a settled NFR/guardrail spec, not the reverse — getting this
 order backwards means LLD gets built without a spec to follow, then NFRs retroactively second-
